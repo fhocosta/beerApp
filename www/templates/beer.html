@@ -1,0 +1,31 @@
+<ion-view view-title="{{beer.nameDisplay}}">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-text-wrap">
+                <h3>Name</h3>
+                <p>{{beer.nameDisplay}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                <h3>Description</h3>
+                <p>{{beer.description}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                <h3>Creation Date</h3>
+                <p>{{beer.createDate}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                <h3>Organic</h3>
+                <p>{{beer.isOrganic}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                <h3>Style</h3>
+                <p>{{beer.style.name}}</p>
+                <p>Short Name: {{beer.style.shortName}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                <h3>Style Description</h3>
+                <p>{{beer.style.description}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
