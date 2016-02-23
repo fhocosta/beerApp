@@ -1,18 +1,41 @@
-<script id="search.html" type="text/ng-template">
+<div class="modal">
     <ion-modal-view>
-        <ion-header-bar>
-            <h1>Search</h1>
+        <ion-header-bar class="bar-stable">
+            <button class="button button-icon button-clear ion-close" ng-click="closeModal()"></button>
+            <h1 class="title">Beer Filter</h1>
+            <button class="button button-icon button-clear ion-checkmark" ng-controller="BeersListCtrl"
+                    ng-click="searchBeer(filter)"></button>
         </ion-header-bar>
         <ion-content>
             <div class="list">
-                <label class="item item-input">
-                    Name
-                    <input type="text" placeholder="Beer Name">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Beer Name</span>
+                    <input type="text" placeholder="Beer Name" ng-model="filter.name">
                 </label>
-                <button class="button-positive">
-                    Search
-                </button>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Beer ABV {{filter.abv != undefined ? ': ' + filter.abv : ''}}</span>
+                    <div class="item range range-balanced" style="border: none;">
+                        <i class="icon ion-minus"></i>
+                        <input type="range" name="Beer ABV" ng-model="filter.abv" min="-100" max="100">
+                        <i class="icon ion-plus"></i>
+                    </div>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Beer IBU {{filter.ibu != undefined ? ': ' + filter.ibu : ''}}</span>
+                    <div class="item range range-calm" style="border: none;">
+                        <i class="icon ion-minus"></i>
+                        <input type="range"  name="Beer ABV" ng-model="filter.ibu" min="-100" max="100">
+                        <i class="icon ion-plus"></i>
+                    </div>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Style</div>
+                    <select ng-options="style as style.shortName for style in styles track by style.id"
+                            ng-model="filter.style">
+                        <option value="">Select a Beer Style</option>
+                    </select>
+                </label>
             </div>
         </ion-content>
     </ion-modal-view>
-</script>
+</div>

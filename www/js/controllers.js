@@ -1,9 +1,7 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $ionicModal) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $http) {
 
-
-        // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/search.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -11,17 +9,30 @@ angular.module('starter.controllers', [])
             $scope.modal = modal;
         });
 
-        // Open the search modal
         $scope.openModal = function () {
+            console.log('before');
             $scope.modal.show();
+            console.log('after');
         };
 
-        // Triggered in the login modal to close it
         $scope.closeModal = function () {
             $scope.modal.hide();
         };
 
-
+        $http({
+            method: 'GET',
+            key: '53bdaa14fe3d0a7db5fe60cb7c4facb9',
+            url: 'https://salty-taiga-88147.herokuapp.com/styles'
+        })
+            .then(
+            function(response){
+                console.log(response);
+                $scope.styles = response.data.data;
+            },
+            function(response){
+                console.info('Error getting Beer Style');
+            }
+        )
 
     })
 
@@ -33,6 +44,10 @@ angular.module('starter.controllers', [])
             key: apiKey,
             abv: '10'
         };
+
+        //Initializing Filter Object
+        $scope.filter = {};
+
         $http({
             method: 'GET',
             url: url,
@@ -40,15 +55,27 @@ angular.module('starter.controllers', [])
         })
             .then(
             function (response) {
-                console.info('Success');
-                console.log(response);
                 $scope.beers = response.data.data;
-
             },
             function (response) {
-                console.info('Error');
-                console.log(response);
+                console.info('Error getting Beer list');
             });
+
+        $scope.searchBeer = function(filter){
+
+            $scope.closeModal();
+        };
+
+        function createOptions(filter){
+            var options = {
+                key: apiKey
+            };
+            if(angular.isString(filter.name)){
+
+            }
+        }
+
+
 
     })
     .controller('BeerDescriptionCtrl', function ($scope, $stateParams, $http) {
@@ -70,13 +97,10 @@ angular.module('starter.controllers', [])
         $http(request)
             .then(
             function (response) {
-                console.info('Success');
-                console.log(response);
                 $scope.beer = response.data.data;
 
             },
             function (response) {
-                console.info('Error');
-                console.log(response);
+                console.info('Error getting Beer Description');
             });
     });

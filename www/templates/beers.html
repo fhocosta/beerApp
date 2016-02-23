@@ -4,10 +4,13 @@
             <ion-item ng-repeat="beer in beers"
                       class="item-thumbnail-left"
                       ng-href="#/app/beer/{{beer.id}}">
-                <img src="../img/pint.png" alt="Beer">
+                <img ng-src="{{beer.labels.icon == undefined ? 'img/pint.png':beer.labels.icon}}" alt="Beer">
+
                 <h2>{{beer.name}}</h2>
+
                 <p>{{beer.description}}</p>
             </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
+
