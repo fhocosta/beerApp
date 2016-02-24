@@ -76,7 +76,7 @@ angular.module('starter.controllers', [])
             beerRequest['params'] = options;
             $http(beerRequest).then(
                 function(response){
-                    $ionicScrollDelegate.scrollTop();
+                    //$ionicScrollDelegate.scrollTop();
                     $scope.createNextPageRequest(response);
                     $rootScope.beers = response.data.data;
                 },
