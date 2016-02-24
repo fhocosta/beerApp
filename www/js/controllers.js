@@ -1,9 +1,11 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $http, $rootScope) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $http, $rootScope, $ionicScrollDelegate) {
 
         var apiKey = '53bdaa14fe3d0a7db5fe60cb7c4facb9';
         var url = 'https://salty-taiga-88147.herokuapp.com/beers';
+        $scope.noMorePagesAvailable = false;
+        $scope.morePagesAvailable = false;
         $scope.filter = {};
 
         $ionicModal.fromTemplateUrl('templates/search.html', {
@@ -74,6 +76,8 @@ angular.module('starter.controllers', [])
             beerRequest['params'] = options;
             $http(beerRequest).then(
                 function(response){
+                    $ionicScrollDelegate.scrollTop();
+                    $scope.createNextPageRequest(response);
                     $rootScope.beers = response.data.data;
                 },
                 function(response){
@@ -83,6 +87,40 @@ angular.module('starter.controllers', [])
             $scope.closeModal();
         };
 
+        $scope.loadNextPage = function(){
+            $http($scope.nextPageRequest)
+                .then(
+                function(response){
+                    $scope.createNextPageRequest(response);
+                    $rootScope.beers = $rootScope.beers.concat(response.data.data);
+                },
+                function(response){
+
+                }
+            )
+        };
+
+        $scope.createNextPageRequest = function(response){
+            if ( response.data.currentPage < response.data.numberOfPages ) {
+                $scope.morePagesAvailable = true;
+                if (angular.isDefined(response.config.params)) {
+                    if (angular.isDefined(response.config.params.p)) {
+                        response.config.params.p = response.config.params.p + 1;
+                    } else {
+                        response.config.params['p'] = response.data.currentPage + 1;
+                    }
+                }
+
+                $scope.nextPageRequest = {
+                    method: 'GET',
+                    url: url,
+                    params: response.config.params
+                }
+            }else{
+                $scope.noMorePagesAvailable = true;
+            }
+        };
+
         $scope.clearFilters = function(){
             $scope.filter = {};
         }
@@ -90,42 +128,13 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('BeersListCtrl', function ($scope, $stateParams, $http, $rootScope) {
+    .controller('BeersListCtrl', function ($scope, $stateParams, $http, $rootScope, $ionicScrollDelegate) {
         $scope.beers = [];
         $rootScope.$watch('beers', function (newValue, oldValue) {
             if (newValue) {
-                console.log(newValue);
                 $scope.beers = $rootScope.beers;
             }
         });
-
-        //That's mine! =D Change it later
-        //var apiKey = '53bdaa14fe3d0a7db5fe60cb7c4facb9';
-        //var url = 'https://salty-taiga-88147.herokuapp.com/beers';
-        //var options = {
-        //    key: apiKey,
-        //    abv: '10'
-        //};
-        //
-        ////Initializing Filter Object
-        //$scope.filter = {};
-        //
-        //$http({
-        //    method: 'GET',
-        //    url: url,
-        //    params: options
-        //})
-        //    .then(
-        //    function (response) {
-        //        $scope.beers = response.data.data;
-        //    },
-        //    function (response) {
-        //        console.info('Error getting Beer list');
-        //    });
-
-
-
-
 
 
     })
@@ -148,8 +157,8 @@ angular.module('starter.controllers', [])
         $http(request)
             .then(
             function (response) {
+                console.log(response);
                 $scope.beer = response.data.data;
-
             },
             function (response) {
                 console.info('Error getting Beer Description');

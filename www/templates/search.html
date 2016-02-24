@@ -16,7 +16,7 @@
                     <span class="input-label">Beer ABV {{filter.abv != undefined ? ': ' + filter.abv : ''}}</span>
                     <div class="item range range-balanced" style="border: none;">
                         <i class="icon ion-minus"></i>
-                        <input type="range" name="Beer ABV" ng-model="filter.abv" min="-100" max="100">
+                        <input type="range" name="Beer ABV" ng-model="filter.abv" min="-10" max="10">
                         <i class="icon ion-plus"></i>
                     </div>
                 </label>
@@ -24,7 +24,7 @@
                     <span class="input-label">Beer IBU {{filter.ibu != undefined ? ': ' + filter.ibu : ''}}</span>
                     <div class="item range range-calm" style="border: none;">
                         <i class="icon ion-minus"></i>
-                        <input type="range"  name="Beer ABV" ng-model="filter.ibu" min="-100" max="100">
+                        <input type="range"  name="Beer ABV" ng-model="filter.ibu" min="-50" max="50">
                         <i class="icon ion-plus"></i>
                     </div>
                 </label>

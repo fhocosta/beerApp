@@ -1,21 +1,29 @@
 <ion-view view-title="Beers">
     <ion-content ng-show="beers.length > 0">
-        <ion-list>
-            <ion-item ng-repeat="beer in beers"
-                      class="item-thumbnail-left"
-                      ng-href="#/app/beer/{{beer.id}}">
-                <img ng-src="{{beer.labels.icon == undefined ? 'img/pint.png':beer.labels.icon}}" alt="Beer">
+        <ion-scroll delegate-handle="scroller">
+            <ion-list>
+                <ion-item ng-repeat="beer in beers"
+                          class="item-thumbnail-left"
+                          ng-href="#/app/beer/{{beer.id}}">
+                    <img ng-src="{{beer.labels.icon == undefined ? 'img/pint.png':beer.labels.icon}}" alt="Beer">
 
-                <h2>{{beer.name}}</h2>
+                    <h2>{{beer.name}}</h2>
 
-                <p>{{beer.description}}</p>
-            </ion-item>
-        </ion-list>
+                    <p>{{beer.description}}</p>
+                </ion-item>
+                <ion-item ng-show="morePagesAvailable" ng-click="loadNextPage()">
+                    <p>Load More</p>
+                </ion-item>
+                <ion-item ng-show="noMorePagesAvailable">
+                    <p>No More Items Available</p>
+                </ion-item>
+            </ion-list>
+        </ion-scroll>
     </ion-content>
     <ion-content ng-show="beers.length == 0">
         <ion-list>
-            <ion-item>
-                <p>teste</p>
+            <ion-item class="item-text-wrap" ng-click="openModal()">
+                <p>Beer is the man's worst enemy, but the bible says to love your enemy... So click here or in the search button above to know more about your favorite enemy!</p>
             </ion-item>
         </ion-list>
     </ion-content>
