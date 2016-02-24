@@ -3,7 +3,7 @@
         <ion-header-bar class="bar-stable">
             <button class="button button-icon button-clear ion-close" ng-click="closeModal()"></button>
             <h1 class="title">Beer Filter</h1>
-            <button class="button button-icon button-clear ion-checkmark" ng-controller="BeersListCtrl"
+            <button class="button button-icon button-clear ion-checkmark"
                     ng-click="searchBeer(filter)"></button>
         </ion-header-bar>
         <ion-content>
@@ -35,6 +35,18 @@
                         <option value="">Select a Beer Style</option>
                     </select>
                 </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Glass</div>
+                    <select ng-options="glass as glass.name for glass in glassware track by glass.id"
+                            ng-model="filter.glass">
+                        <option value="">Select a Glass Style</option>
+                    </select>
+                </label>
+            </div>
+            <div class="bar bar-footer-bar-balanced">
+                <button class="button button-block button-positive" ng-click="clearFilters()">
+                    Clear Filters
+                </button>
             </div>
         </ion-content>
     </ion-modal-view>

@@ -1,31 +1,54 @@
 <ion-view view-title="{{beer.nameDisplay}}">
     <ion-content>
-        <ion-list>
-            <ion-item class="item-text-wrap">
-                <h3>Name</h3>
-                <p>{{beer.nameDisplay}}</p>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <h3>Description</h3>
-                <p>{{beer.description}}</p>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <h3>Creation Date</h3>
-                <p>{{beer.createDate}}</p>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <h3>Organic</h3>
-                <p>{{beer.isOrganic == 'Y' ? 'Yes' : 'No'}}</p>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <h3>Style</h3>
-                <p>{{beer.style.name}}</p>
-                <p>Short Name: {{beer.style.shortName}}</p>
-            </ion-item>
-            <ion-item class="item-text-wrap">
-                <h3>Style Description</h3>
-                <p>{{beer.style.description}}</p>
-            </ion-item>
-        </ion-list>
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="{{beer.labels.icon != undefined ? beer.labels.icon : '../img/pint.png'}}" alt="Beer">
+
+                <h2>{{beer.nameDisplay}}</h2>
+
+                <p class="item-text-wrap">{{beer.style.shortName}}</p>
+            </div>
+        </div>
+        <div class="item item-body">
+            <img class="full-image" src="{{beer.labels.medium != undefined ? beer.labels.medium : '../img/beer-label-sample.jpg'}}" alt="Beer Label">
+
+            <p>{{beer.description}}</p>
+
+            <p>
+                <a class="subdued">ABV: {{beer.abv}}</a>
+                <a class="subdued">IBU: {{beer.ibu}}</a>
+                <a class="subdued">Glass: {{beer.glass.name}}</a>
+                <a class="subdued">Organic: {{beer.isOrganic == 'Y' ? 'Yes' : 'No'}}</a>
+            </p>
+            <p ng-show="servingTemperatureDisplay != undefined">Serving Temperature: {{beer.servingTemperatureDisplay}}</p>
+            <p ng-show="servingTemperatureDisplay == undefined">Serving Temperature not Available</p>
+        </div>
+        <!--<ion-list>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Name</h3>-->
+        <!--<p>{{beer.nameDisplay}}</p>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Description</h3>-->
+        <!--<p>{{beer.description}}</p>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Creation Date</h3>-->
+        <!--<p>{{beer.createDate}}</p>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Organic</h3>-->
+        <!--<p>{{beer.isOrganic == 'Y' ? 'Yes' : 'No'}}</p>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Style</h3>-->
+        <!--<p>{{beer.style.name}}</p>-->
+        <!--<p>Short Name: {{beer.style.shortName}}</p>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<h3>Style Description</h3>-->
+        <!--<p>{{beer.style.description}}</p>-->
+        <!--</ion-item>-->
+        <!--</ion-list>-->
     </ion-content>
 </ion-view>

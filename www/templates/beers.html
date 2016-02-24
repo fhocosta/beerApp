@@ -1,5 +1,5 @@
 <ion-view view-title="Beers">
-    <ion-content>
+    <ion-content ng-show="beers.length > 0">
         <ion-list>
             <ion-item ng-repeat="beer in beers"
                       class="item-thumbnail-left"
@@ -9,6 +9,13 @@
                 <h2>{{beer.name}}</h2>
 
                 <p>{{beer.description}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-content ng-show="beers.length == 0">
+        <ion-list>
+            <ion-item>
+                <p>teste</p>
             </ion-item>
         </ion-list>
     </ion-content>
